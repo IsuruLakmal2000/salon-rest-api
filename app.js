@@ -14,3 +14,5 @@ app.listen(process.env.APP_PORT, () => {
 
 module.exports = app;
 //https://blade-salon-app.herokuapp.com/ | https://git.heroku.com/blade-salon-app.git
+
+//new heroku api url -https://git.heroku.com/dry-shelf-23479.git
