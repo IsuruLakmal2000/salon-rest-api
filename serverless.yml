@@ -1,0 +1,30 @@
+service: RestApi
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  memorySize: 2048
+  stage: dev
+  timeout: 150
+  region: us-east-1
+  runtime: nodejs12.x
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http: ANY /{proxy+}
+      - http: ANY /
+    environment:
+      APP_PORT: 3000
+      DB_PORT: 3306
+      DB_HOST: blade-salon-db.cxz6mnl0sypg.us-east-1.rds.amazonaws.com
+      DB_USER: isuru
+      DB_PASS: Nuttertools1234
+      MYSQL_DB: salon
