@@ -3,7 +3,7 @@ const pool = require('../../config/database');
 module.exports = {
     create : (data, callBack) => {
         pool.query(
-            'insert into user(name,password) values(?,?)',
+            'insert into salon(name,password) values(?,?)',
             [
                 data.name,
                 data.password
@@ -18,7 +18,7 @@ module.exports = {
     },
     getUsers: callback =>{
         pool.query(
-            'select * from user',
+            'select * from salon',
             [   ],
             (error, results, fields) => {
                 if(error){
@@ -31,7 +31,7 @@ module.exports = {
     },
     updateUsers: (data, callback) => {
         pool.query(
-            'update user set name=?, password=? where id=?',
+            'update salon set name=?, password=? where id=?',
             [
                 data.name,
                 data.password,
