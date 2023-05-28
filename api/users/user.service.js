@@ -36,7 +36,7 @@ module.exports = {
     },
     updateUsers: (data, callback) => {
         pool.query(
-            'update salon set description=? where id=?',
+            'update salon set description=? where salon_id=?',
             [
                 data.description,
               
