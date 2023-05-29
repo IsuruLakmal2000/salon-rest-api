@@ -2,23 +2,26 @@
 const {addPackage} = require('./package_service');
 
 module.exports = {
+
+  addPackage: (req, res) => {
+    const body = req.body;
+   
     
-    addPackage: (req, res) => {
-        const body = req.body;
-       
-        packages.forEach((package) => {
-            pool.query(
-              'INSERT INTO packages (name, price) VALUES (?, ?)',
-              [package.name, package.price],
-              (error, results, fields) => {
-                if (error) throw error;
-                console.log('Inserted package:', package);
-              }
-            );
-          });
-
-
-    },
-  
+    addPackage(body,(err, results) => {
+        if(err){
+            console.log(err);
+            return res.status(500).json({
+                success: 0,
+                message: "Database connection error"
+            });
+        }
+        return res.status(200).json({
+            success: 1,
+            data: results
+        });
+    });
+},
+    
+   
     
 };
