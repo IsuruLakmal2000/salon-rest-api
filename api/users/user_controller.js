@@ -1,5 +1,5 @@
 
-const {create, getUsers,updateUsers} = require('./user.service');
+const {create, getUsers,updateUsers,addPackage} = require('./user.service');
 
 module.exports = {
     createUser: (req, res) => {
@@ -21,6 +21,7 @@ module.exports = {
             });
         });
     },
+    
     updateUser: (req, res) => {
         const body = req.body;
         updateUsers(body,(err,results) => {

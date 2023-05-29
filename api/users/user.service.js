@@ -21,6 +21,7 @@ module.exports = {
             }
         )
     },
+   
     getUsers: callback =>{
         pool.query(
             'select * from salon',
