@@ -5,12 +5,12 @@ module.exports = {
     addPackage : (data, callBack) => {
         
         pool.query(
-            'insert into package(salon_id,package_name,package_price) values(?,?,?)',
+            'insert into package(package_name,package_price,salon_id) values(?,?,?)',
             [
-                data.salon_id,
+                
                 data.packageName,
                 data.packagePrice,
-               
+                data.salon_id,
                
             ],
             (error, results, fields) => {
