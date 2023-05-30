@@ -51,4 +51,18 @@ module.exports = {
             }
         );
     },
+
+    // getUserByEmail : (email,callBack)=>{
+    //     pool.query(
+    //         'select * from salon where email=?',
+    //         [email],
+    //         (error,results,fields)=>{
+    //             if(error){
+    //                 return callBack(error);
+    //             }
+    //             return callBack(null,results);
+    //         }
+    //     );
+    // }
+
 }
