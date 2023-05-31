@@ -1,5 +1,5 @@
 
-const {addPackage} = require('./package_service');
+const {addPackage,addSalonType} = require('./package_service');
 
 module.exports = {
 
@@ -21,7 +21,24 @@ module.exports = {
         });
     });
 },
+addSalonType: (req, res) => {
+    const body = req.body.selectedOptions;
+   
     
+    addSalonType(body,(err, results) => {
+        if(err){
+            console.log(err);
+            return res.status(500).json({
+                success: 0,
+                message: "Database connection error"
+            });
+        }
+        return res.status(200).json({
+            success: 1,
+            data: results
+        });
+    });
+},
    
     
 };

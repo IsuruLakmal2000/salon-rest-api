@@ -21,5 +21,24 @@ module.exports = {
             }
         )
     },
+    
+    addSalonType : (data, callBack) => {
+        const optionsJson = JSON.stringify(data);
+        pool.query(
+            'UPDATE package SET salon_type = ? WHERE salon_id = ?',
+            [
+                
+                optionsJson,
+                data.salon_id
+               
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    },
    
 }
