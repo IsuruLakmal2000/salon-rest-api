@@ -23,7 +23,7 @@ module.exports = {
     },
     
     addSalonType : (data, callBack) => {
-        const optionsJson = JSON.stringify(data);
+        const optionsJson = JSON.stringify(data.selectedOptions);
         pool.query(
             'UPDATE package SET salon_type = ? WHERE salon_id = ?',
             [

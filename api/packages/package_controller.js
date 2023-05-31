@@ -22,7 +22,7 @@ module.exports = {
     });
 },
 addSalonType: (req, res) => {
-    const body = req.body.selectedOptions;
+    const body = req.body;
    
     
     addSalonType(body,(err, results) => {
