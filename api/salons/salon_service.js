@@ -22,7 +22,7 @@ module.exports = {
         )
     },
    
-    getUsers: callback =>{
+    getSalon: callback =>{
         pool.query(
             'select * from salon',
             [   ],
@@ -35,7 +35,7 @@ module.exports = {
         );
 
     },
-    updateUsers: (data, callback) => {
+    updateSalon: (data, callback) => {
         pool.query(
             'update salon set description=? where salon_id=?',
             [

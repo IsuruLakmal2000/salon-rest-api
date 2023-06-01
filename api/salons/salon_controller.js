@@ -1,11 +1,11 @@
 
-const {create, getUsers,updateUsers,getUserByEmail} = require('./user.service');
+const {create, getSalon,updateSalon,getUserByEmail} = require('./salon_service');
 const { genSaltSync, hashSync ,compareSync } = require('bcrypt');
 const { sign } = require('jsonwebtoken');
 
 
 module.exports = {
-    createUser: (req, res) => {
+    createSalon: (req, res) => {
         const body = req.body;
         console.log(req.body);
         //-----------salon password encryption----------
@@ -28,9 +28,9 @@ module.exports = {
         });
     },
     
-    updateUser: (req, res) => {
+    updateSalon: (req, res) => {
         const body = req.body;
-        updateUsers(body,(err,results) => {
+        updateSalon(body,(err,results) => {
             if(err){
                 console.log(err);
                 return;
@@ -47,8 +47,8 @@ module.exports = {
             });
         });
     },
-    getUsers: (req, res) => {
-        getUsers((err,results) => {
+    getSalon: (req, res) => {
+        getSalon((err,results) => {
             if(err){
                 console.log(err);
                 return;
