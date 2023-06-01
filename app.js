@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use('/api/salons', salonRouter);
 app.use('/api/packages', packageRouter);
-app.use('/api/packages', customerRouter);
+app.use('/api/customers', customerRouter);
 
 
 app.listen(port, () => {
