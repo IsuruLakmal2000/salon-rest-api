@@ -4,12 +4,14 @@ const express = require('express');
 const app = express();
 const salonRouter = require('./api/salons/salon_router');
 const packageRouter = require('./api/packages/package_router');
+const customerRouter = require('./api/customer/customer_router');
 const port = process.env.PORT || 3000;
 //const port =  3000;
 app.use(express.json());
 
 app.use('/api/salons', salonRouter);
 app.use('/api/packages', packageRouter);
+app.use('/api/packages', customerRouter);
 
 
 app.listen(port, () => {
