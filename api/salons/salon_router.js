@@ -4,7 +4,7 @@ const router = require('express').Router();
 router.post('/', createSalon);
 router.get('/', getSalon);
 router.patch('/', updateSalon); 
-//router.post('/login',login)
+router.post('/login/',login)
 
 
 module.exports = router;
