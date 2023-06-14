@@ -2,7 +2,7 @@
 const {create, getSalon,updateSalon,getUserByEmail} = require('./salon_service');
 const { genSaltSync, hashSync ,compareSync } = require('bcrypt');
 const { sign } = require('jsonwebtoken');
-
+var bcrypt = require('bcrypt');
 
 module.exports = {
     createSalon: (req, res) => {
@@ -62,9 +62,9 @@ module.exports = {
 //------------login function----------------
 
     login: (req, res) => {
-        const body = req.body;
+        const {email,password} = req.body;
         
-        getUserByEmail(body.email, (err, results) => {
+        getUserByEmail(email, (err, results) => {
           
             if(err){
                 console.log("cant get email");
@@ -73,10 +73,14 @@ module.exports = {
             if(!results){
                 return res.json({
                     success: 0,
-                    data: "Invalid email "
+                    data: "Email does not exists "
                 });
             }
-            const result = compareSync(body.password, results.password);
+           const result = compareSync(password, results.password);
+            // const result = function(password){
+            //     return bcrypt.compareSync(password, results.password);
+
+            // };
             if(result){
                 results.password = undefined;
                 const jsontoken = sign({result: results}, process.env.JWT_KEY, {
@@ -89,7 +93,7 @@ module.exports = {
                 });
             }else{
                 console.log(result);
-                console.log(body.password +"   "+ results.password);
+                console.log(password +"   "+ results.password);
                 return res.json({
                     
                     success: 0,
