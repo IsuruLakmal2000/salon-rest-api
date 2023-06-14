@@ -73,7 +73,7 @@ module.exports = {
             if(!results){
                 return res.json({
                     success: 0,
-                    data: "Email does not exists "
+                    data: "Email does not exists, please check again"
                 });
             }
            const result = compareSync(password, results.password);
