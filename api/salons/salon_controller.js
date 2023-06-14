@@ -64,6 +64,7 @@ module.exports = {
     login: (req, res) => {
         const body = req.body;
         getUserByEmail(body.email, (err, results) => {
+            console.log("run this");
             if(err){
                 console.log("cant get email");
                 console.log(err);
@@ -71,7 +72,7 @@ module.exports = {
             if(!results){
                 return res.json({
                     success: 0,
-                    data: "Invalid email or password "
+                    data: "Invalid email "
                 });
             }
             const result = compareSync(body.password, results.password);
