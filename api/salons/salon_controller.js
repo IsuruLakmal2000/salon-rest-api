@@ -65,6 +65,7 @@ module.exports = {
         const body = req.body;
         getUserByEmail(body.email, (err, results) => {
             if(err){
+                console.log("cant get email");
                 console.log(err);
             }
             if(!results){
