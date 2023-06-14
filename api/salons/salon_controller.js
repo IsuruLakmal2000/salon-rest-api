@@ -73,7 +73,7 @@ module.exports = {
             if(!results){
                 return res.json({
                     success: 0,
-                    data: "Email does not exists, please check again"
+                    message: "Email does not exists, please check again!"
                 });
             }
            const result = compareSync(password, results.password);
@@ -97,7 +97,7 @@ module.exports = {
                 return res.json({
                     
                     success: 0,
-                    data: "Invalid email or password"
+                    message: "Invalid email or password"
                 });
             }
         });
