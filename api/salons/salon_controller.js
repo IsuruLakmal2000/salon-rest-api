@@ -63,8 +63,9 @@ module.exports = {
 
     login: (req, res) => {
         const body = req.body;
+        
         getUserByEmail(body.email, (err, results) => {
-            console.log("run this");
+          
             if(err){
                 console.log("cant get email");
                 console.log(err);
@@ -88,7 +89,7 @@ module.exports = {
                 });
             }else{
                 console.log(result);
-                console.log(body.password +""+ results.password);
+                console.log(body.password +"   "+ results.password);
                 return res.json({
                     
                     success: 0,
