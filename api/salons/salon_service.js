@@ -53,6 +53,7 @@ module.exports = {
     },
 
     getUserByEmail : (email,callBack)=>{
+        console.log(email);
         pool.query(
             'select * from salon where email=?',
             [email],
