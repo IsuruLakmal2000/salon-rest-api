@@ -3,7 +3,7 @@ const pool = require('../../config/database');
 module.exports = {
     create : (data, callBack) => {
         pool.query(
-            'insert into salon(salon_name,owner_name,email,phone,address,password) values(?,?,?,?,?,?)',
+            'insert into salon(salon_name,owner_name,email,phone,address,password,latitude,longitude) values(?,?,?,?,?,?,?,?)',
             [
                 data.salonName,
                 data.ownerName,
@@ -11,6 +11,8 @@ module.exports = {
                 data.pno,
                 data.address,
                 data.password,
+                data.katitude,
+                data.longitude
                
             ],
             (error, results, fields) => {
