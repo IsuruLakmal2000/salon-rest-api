@@ -11,7 +11,7 @@ module.exports = {
                 data.pno,
                 data.address,
                 data.password,
-                data.katitude,
+                data.latitude,
                 data.longitude
                
             ],
