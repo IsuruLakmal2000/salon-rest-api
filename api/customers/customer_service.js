@@ -49,17 +49,17 @@ module.exports = {
     //     );
     // },
 
-    // getUserByEmail : (email,callBack)=>{
-    //     pool.query(
-    //         'select * from salon where email=?',
-    //         [email],
-    //         (error,results,fields)=>{
-    //             if(error){
-    //                 return callBack(error);
-    //             }
-    //             return callBack(null,results);
-    //         }
-    //     );
-    // }
+    getUserByEmail : (email,callBack)=>{
+        pool.query(
+            'select * from customer where email=?',
+            [email],
+            (error,results,fields)=>{
+                if(error){
+                    return callBack(error);
+                }
+                return callBack(null,results[0]);
+            }
+        );
+    }
 
 }

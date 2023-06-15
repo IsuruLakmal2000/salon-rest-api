@@ -60,39 +60,39 @@ module.exports = {
         });
     },
 
-    // login: (req, res) => {
-    //     const body = req.body;
-    //     getUserByEmail(body.email, (err, results) => {
-    //         if(err){
-    //             console.log(err);
-    //         }
-    //         if(!results){
-    //             return res.json({
-    //                 success: 0,
-    //                 data: "Invalid email or password "
-    //             });
-    //         }
-    //         const result = compareSync(body.password, results.password);
-    //         if(result){
-    //             results.password = undefined;
-    //             const jsontoken = sign({result: results}, process.env.JWT_KEY, {
-    //                 expiresIn: "1h"
-    //             });
-    //             return res.json({
-    //                 success: 1,
-    //                 message: "login successfully",
-    //                 token: jsontoken
-    //             });
-    //         }else{
-    //             console.log(result);
-    //             console.log(body.password +""+ results.password);
-    //             return res.json({
+    login: (req, res) => {
+        const {email,password} = req.body;
+        getUserByEmail(email, (err, results) => {
+            if(err){
+                console.log(err);
+            }
+            if(!results){
+                return res.json({
+                    success: 0,
+                    message: "Email doest not exists.Please try again "
+                });
+            }
+            const result = compareSync(password, results.password);
+            if(result){
+                results.password = undefined;
+                const jsontoken = sign({result: results}, process.env.JWT_KEY, {
+                    expiresIn: "1h"
+                });
+                return res.json({
+                    success: 1,
+                    message: "login successfully",
+                    token: jsontoken
+                });
+            }else{
+                console.log(result);
+                console.log(password +"-"+ results.password);
+                return res.json({
                     
-    //                 success: 0,
-    //                 data: "Invalid email or password"
-    //             });
-    //         }
-    //     });
-    // },
+                    success: 0,
+                    message: "Invalid email or password.please try again"
+                });
+            }
+        });
+    },
     
 };
