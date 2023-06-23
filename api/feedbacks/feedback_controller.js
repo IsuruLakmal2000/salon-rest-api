@@ -6,6 +6,7 @@ module.exports = {
     
     getFeedback: (req, res) => {
         const {salon_id} = req.params.salon_id;
+        console.log(salon_id);
         getFeedbackBySalonId(salon_id,(err,results) => {
             if(err){
                 console.log(err);
