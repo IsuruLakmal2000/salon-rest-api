@@ -5,6 +5,7 @@ const {getFeedbackBySalonId} = require('./feedback_service');
 module.exports = {
     
     getFeedback: (req, res) => {
+        console.log(req.params);
         const {salonId} = req.params.salon_id;
         console.log(salonId);
         getFeedbackBySalonId(salonId,(err,results) => {
