@@ -1,11 +1,11 @@
 const pool = require('../../config/database'); 
 
 module.exports = {
-    getFeedbackBySalonId : (salon_id,callBack)=>{
+    getFeedbackBySalonId : (salonId,callBack)=>{
         pool.query(
            'select * from feedback where salon_id=?',
            //'select * from feedback',
-            [salon_id],
+            [salonId],
             (error,results,fields)=>{
                 if(error){
                     return callBack(error);
