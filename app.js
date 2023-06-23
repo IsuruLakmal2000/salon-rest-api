@@ -5,6 +5,7 @@ const app = express();
 const salonRouter = require('./api/salons/salon_router');
 const packageRouter = require('./api/packages/package_router');
 const customerRouter = require('./api/customers/customer_router');
+const customerRouter = require('./api/feedbacks/feedback_router');
 const port = process.env.PORT || 3000;
 //const port =  3000;
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use('/api/salons', salonRouter);
 app.use('/api/packages', packageRouter);
 app.use('/api/customers', customerRouter);
+app.use('/api/feedbacks', feedbackRouter);
 
 
 app.listen(port, () => {
