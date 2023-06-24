@@ -6,7 +6,7 @@ module.exports = {
            //'select * from feedback where salon_id=?',
 
            'SELECT feedback.feedback_id, feedback.feedback,feedback.rating_star, customer.customer_name FROM feedback JOIN customer ON feedback.customer_id = customer.customer_id WHERE feedback.salon_id = ?'
-           //'select * from feedback',
+          
             [salonId],
             (error,results,fields)=>{
                 if(error){
