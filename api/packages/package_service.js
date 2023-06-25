@@ -41,5 +41,19 @@ module.exports = {
             }
         )
     },
+
+    getPackagesBySalonId : (salonId,callBack)=>{
+        pool.query(
+           
+          'SELECT package_id,package_name,package_price FROM package WHERE salon_id = ?',
+            [salonId],
+            (error,results,fields)=>{
+                if(error){
+                    return callBack(error);
+                }
+                return callBack(null,results);
+            }
+        );
+    }
    
 }

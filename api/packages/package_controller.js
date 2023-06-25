@@ -1,5 +1,5 @@
 
-const {addPackage,addSalonType} = require('./package_service');
+const {addPackage,addSalonType,getPackagesBySalonId} = require('./package_service');
 
 module.exports = {
 
@@ -39,6 +39,21 @@ addSalonType: (req, res) => {
         });
     });
 },
+
+getPackages: (req, res) => {
+    const salonId = req.params.salon_id;
+    getPackagesBySalonId(salonId,(err,results) => {
+        if(err){
+            console.log(err);
+            return;
+        }
+        return res.json({
+            success: 1,
+            data: results
+        });
+    });
+},
+
    
     
 };
