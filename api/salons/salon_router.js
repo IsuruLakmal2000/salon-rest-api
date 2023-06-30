@@ -5,6 +5,7 @@ router.post('/', createSalon);
 router.get('/', getSalon);
 router.patch('/', updateSalon); 
 router.post('/login',login)
+console("salon router");
 
 
 module.exports = router;
