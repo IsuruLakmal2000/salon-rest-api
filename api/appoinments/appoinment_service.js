@@ -3,7 +3,7 @@ const pool = require('../../config/database');
 module.exports = {
     makeAppoinment : (data, callBack) => {
         pool.query(
-            'insert into appoinment(salon_id,customer_id,selectedPackage_id,date,day,time,status) values(?,?,?)',
+            'insert into appoinment(salon_id,customer_id,selectedPackage_id,date,day,time,status) values(?,?,?,?,?,?,?)',
             [
                 data.salon_id,
                 data.customer_id,
