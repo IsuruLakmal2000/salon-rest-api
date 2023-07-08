@@ -90,7 +90,9 @@ module.exports = {
 
     checkAvailability : (data,callBack)=>{
         const { date, salonId } = data;
-        pool.query('SELECT time, COUNT(*) AS count FROM appointments WHERE date = ? AND salon_id = ? GROUP BY time', [date, salonId], (error, results, fields) => {
+        console.log("date :"+date);
+        console.log("salonId :"+salonId);
+        pool.query('SELECT time, COUNT(*) AS count FROM appoinment WHERE date = ? AND salon_id = ? GROUP BY time', [date, salonId], (error, results, fields) => {
             if (error) {
               console.error(error);
               return res.status(500).json({

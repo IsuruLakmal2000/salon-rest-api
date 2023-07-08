@@ -1,4 +1,4 @@
-const {makeAppoinment,getServicePoint } = require('./appoinment_service');
+const {makeAppoinment,getServicePoint,checkAvailability } = require('./appoinment_service');
 
 module.exports = {
     makeAppoinment: (req, res) => {
@@ -26,7 +26,8 @@ module.exports = {
         });
     },
     checkAvailability: (req, res) => {
-        const body = req.body;
+        
+        const body = req.query;
         console.log(req.body);
        
         checkAvailability(body,(err, results) => {
@@ -46,7 +47,7 @@ module.exports = {
     },
 
     getServicePoint: (req, res) => {
-       ;
+       
         const salonId = req.params.salon_id;
         getServicePoint(salonId,(err, results) => {
             if(err){
