@@ -100,7 +100,22 @@ module.exports = {
             }
             
         
-            return res.status(200).json(results);
+            return callBack(null, results);
+          });
+    },
+    getServicePoint : (salonId,callBack)=>{
+        
+        pool.query('select service_points from salon where salon_id=?',[salonId], (error, results, fields) => {
+            if (error) {
+              console.error(error);
+              return res.status(500).json({
+                success: 0,
+                message: 'Database connection error'
+              });
+            }
+            
+        
+            return callBack(null, results);
           });
     }
 
