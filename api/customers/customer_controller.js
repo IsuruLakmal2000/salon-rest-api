@@ -82,7 +82,7 @@ module.exports = {
                     success: 1,
                     message: "login successfully",
                     token: jsontoken,
-                    result: result
+                    result: results
                 });
             }else{
                 console.log(result);
