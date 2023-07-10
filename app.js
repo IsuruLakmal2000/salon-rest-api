@@ -17,7 +17,7 @@ app.use('/api/packages', packageRouter);
 app.use('/api/customers', customerRouter);
 app.use('/api/feedbacks', feedbackRouter);
 app.use('/api/appoinments', appoinmentRouter);
-app.use('/api/employee', employeeRouter);
+app.use('/api/employees', employeeRouter);
 
 
 
