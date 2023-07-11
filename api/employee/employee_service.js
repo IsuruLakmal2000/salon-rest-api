@@ -26,7 +26,7 @@ module.exports = {
     getEmployeeBySalonId : (salonId,callBack)=>{
         pool.query(
            
-          'SELECT employee_name,employee_id FROM employee WHERE salon_id = ?',
+          'SELECT employee_name,employee_id,image_url FROM employee WHERE salon_id = ?',
             [salonId],
             (error,results,fields)=>{
                 if(error){
