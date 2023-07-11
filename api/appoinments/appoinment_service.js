@@ -8,7 +8,7 @@ module.exports = {
         // const preferred_date = date.toISOString().slice(0, 10);
         // const preferred_time_slot = time.slice(0, 5);
 
-        pool.query('SELECT * FROM appoinment WHERE date = ? AND time = ? AND salon_id = ? and customer_id=?'), [date, time, salon_id,customer_id], (error, results, fields) => {
+        pool.query('SELECT * FROM appoinment WHERE date = ? AND time = ? AND salon_id = ? and customer_id=?', [date, time, salon_id,customer_id], (error, results, fields) => {
           if (error) {
             return callBack(error);
           }
@@ -52,7 +52,7 @@ module.exports = {
         });
           }
         
-        }
+        })
         
 
 
