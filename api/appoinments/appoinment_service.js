@@ -4,7 +4,7 @@ module.exports = {
     makeAppoinment : (data, callBack) => {
 
 
-        const { salon_id, customer_id, selectedPackage_id, date, day, time, status } = data;
+        const { salon_id, customer_id, selectedPackage_id, date, day, time, status,employee_id } = data;
         // const preferred_date = date.toISOString().slice(0, 10);
         // const preferred_time_slot = time.slice(0, 5);
 
@@ -32,7 +32,7 @@ module.exports = {
        //const available_slots = results.length > 0 ? results[0].available_slots : max_appointments;
         if (booked_slot < max_appointments) {
           const new_available_slots = booked_slot + 1;
-          pool.query('INSERT INTO appoinment (salon_id, customer_id, selectedPackage_id, date,day, time,status, booked_slot) VALUES (?, ?, ?, ?, ?, ?, ?,?)', [salon_id, customer_id, selectedPackage_id, date, day,time,status, new_available_slots ], (error, results, fields) => {
+          pool.query('INSERT INTO appoinment (salon_id, customer_id, selectedPackage_id, date,day, time,status, booked_slot,employee_id) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)', [salon_id, customer_id, selectedPackage_id, date, day,time,status, new_available_slots,employee_id ], (error, results, fields) => {
             if (error) {
               return callBack(error);
             }
