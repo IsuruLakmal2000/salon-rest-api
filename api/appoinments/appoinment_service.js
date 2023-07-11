@@ -8,84 +8,56 @@ module.exports = {
         // const preferred_date = date.toISOString().slice(0, 10);
         // const preferred_time_slot = time.slice(0, 5);
 
-        pool.query('SELECT booked_slot FROM appoinment WHERE date = ? AND time = ? AND salon_id = ? ORDER BY booked_slot desc',
-        [
-            date, 
-            time, 
-            salon_id,
-        ],
-
-     (error, results, fields) => {
-      if (error) {
-        return callBack(error);
-      }
-      const booked_slot = results.length > 0 ? results[0].booked_slot : 0;
-      pool.query('SELECT service_points FROM salon WHERE salon_id = ?', [salon_id], (error, results, fields) => {
-        if (error) {
-            console.log("error :"+error);
-          return callBack(error);
-        }
-        const max_appointments = results[0].service_points;
-        console.log("max_appointments :"+max_appointments);
-        console.log("booked slot :"+booked_slot);
-        //return callBack(null, results);
-       //const available_slots = results.length > 0 ? results[0].available_slots : max_appointments;
-        if (booked_slot < max_appointments) {
-          const new_available_slots = booked_slot + 1;
-          pool.query('INSERT INTO appoinment (salon_id, customer_id, selectedPackage_id, date,day, time,status, booked_slot,employee_id) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)', [salon_id, customer_id, selectedPackage_id, date, day,time,status, new_available_slots,employee_id ], (error, results, fields) => {
+        pool.query('SELECT * FROM appoinment WHERE date = ? AND time = ? AND salon_id = ? and customer_id=?'), [date, time, salon_id,customer_id], (error, results, fields) => {
+          if (error) {
+            return callBack(error);
+          }
+          if (results.length > 0) {
+            return callBack(null, 'An appointment already exists for the selected date and time at the selected salon.');
+          }else{
+            pool.query('SELECT booked_slot FROM appoinment WHERE date = ? AND time = ? AND salon_id = ? ORDER BY booked_slot desc',
+            [
+                date, 
+                time, 
+                salon_id,
+            ],
+    
+         (error, results, fields) => {
+          if (error) {
+            return callBack(error);
+          }
+          const booked_slot = results.length > 0 ? results[0].booked_slot : 0;
+          pool.query('SELECT service_points FROM salon WHERE salon_id = ?', [salon_id], (error, results, fields) => {
             if (error) {
+                console.log("error :"+error);
               return callBack(error);
             }
-            return callBack(null, results);
+            const max_appointments = results[0].service_points;
+            console.log("max_appointments :"+max_appointments);
+            console.log("booked slot :"+booked_slot);
+            //return callBack(null, results);
+           //const available_slots = results.length > 0 ? results[0].available_slots : max_appointments;
+            if (booked_slot < max_appointments) {
+              const new_available_slots = booked_slot + 1;
+              pool.query('INSERT INTO appoinment (salon_id, customer_id, selectedPackage_id, date,day, time,status, booked_slot,employee_id) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)', [salon_id, customer_id, selectedPackage_id, date, day,time,status, new_available_slots,employee_id ], (error, results, fields) => {
+                if (error) {
+                  return callBack(error);
+                }
+                return callBack(null, results);
+              });
+            } else {
+              return callBack(null,'The selected time slot is full. The maximum number of allowed appointments by salon is ' + max_appointments + '. Please choose a different time slot.');
+            }
           });
-        } else {
-          return callBack(null,'The selected time slot is full. The maximum number of allowed appointments is ' + max_appointments + '. Please choose a different time slot.');
+        });
+          }
+        
         }
-      });
-    });
+        
 
 
+       
 
-
-
-
-
-
-        // const availableSlotResult =  pool.query('select available_slot from appoinment where date=? AND time=? AND salon_id=?',
-        // [data.date,data.time,data.salon_id],);
-        //     console.log("available slot :"+availableSlotResult);
-        // const maxAppoinmentResult =  pool.query('select service_points from salon where salon_id=?',
-        // [data.salon_id],);
-        // console.log("max appoinmet :"+[maxAppoinmentResult[0].service_points]);
-        //  const maxAppoinment = maxAppoinmentResult[0].service_points;
-
-        //  if(availableSlotResult.length === 0 || availableSlotResult[0].available_slot < maxAppoinment){
-        //     console.log("inside if");
-        // }
-
-
-
-
-
-        // pool.query(
-        //     'insert into appoinment(salon_id,customer_id,selectedPackage_id,date,day,time,status) values(?,?,?,?,?,?,?)',
-        //     [
-        //         data.salon_id,
-        //         data.customer_id,
-        //         data.selectedPackage_id,
-        //         data.date,
-        //         data.day,
-        //         data.time,
-        //         data.status
-               
-        //     ],
-        //     (error, results, fields) => {
-        //         if(error){
-        //             return callBack(error);
-        //         }
-        //         return callBack(null, results);
-        //     }
-        // )
     },
 
     checkAvailability : (data,callBack)=>{
