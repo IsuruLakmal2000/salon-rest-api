@@ -94,7 +94,7 @@ module.exports = {
     },
     getOngoingAppoinmentsDetails : (customer_id,callBack)=>{
         
-      pool.query('select salon_id,selectedPackage_id,date,day,time from appoinment where customer_id=? and status = "ongoing"',[customer_id], (error, results, fields) => {
+      pool.query('SELECT appoinment.appoinment_id, appoinment.salon_id, appoinment.date, salon.salon_name, appoinment.time, package.package_name FROM appoinment JOIN package ON appoinment.selectedPackage_id = package.package_id JOIN salon ON appoinment.salon_id = salon.salon_id WHERE appoinment.customer_id = ? and appoinment.status="ongoing"',[customer_id], (error, results, fields) => {
           if (error) {
             console.error(error);
             return res.status(500).json({
