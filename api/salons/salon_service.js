@@ -66,6 +66,20 @@ module.exports = {
                 return callBack(null,results[0]);
             }
         );
-    }
+    },
+
+    getSalonById: (sallon_id,callback) =>{
+        pool.query(
+            'select * from salon where salon_id=?',
+            [   ],
+            (error, results, fields) => {
+                if(error){
+                    return callback(error);
+                }
+                return callback(null, results);
+            }
+        );
+
+    },
 
 }
