@@ -91,6 +91,21 @@ module.exports = {
         
             return callBack(null, results);
           });
-    }
+    },
+    getOngoingAppoinmentsDetails : (customer_id,callBack)=>{
+        
+      pool.query('select salon_id,selectedPackage_id,date,day,time from appoinment where customer_id=? and status = "ongoing"',[customer_id], (error, results, fields) => {
+          if (error) {
+            console.error(error);
+            return res.status(500).json({
+              success: 0,
+              message: 'Database connection error'
+            });
+          }
+          
+      
+          return callBack(null, results);
+        });
+  }
 
 }
