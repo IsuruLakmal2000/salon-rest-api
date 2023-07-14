@@ -1,7 +1,7 @@
-const pool = require('../../config/database'); 
+const pool = require('../../config/database');
 
 module.exports = {
-    create : (data, callBack) => {
+    create: (data, callBack) => {
         pool.query(
             'insert into salon(salon_name,owner_name,email,phone,address,password,latitude,longitude) values(?,?,?,?,?,?,?,?)',
             [
@@ -13,23 +13,23 @@ module.exports = {
                 data.password,
                 data.latitude,
                 data.longitude
-               
+
             ],
             (error, results, fields) => {
-                if(error){
+                if (error) {
                     return callBack(error);
                 }
                 return callBack(null, results);
             }
         )
     },
-   
-    getSalon: callback =>{
+
+    getSalon: callback => {
         pool.query(
             'select * from salon',
-            [   ],
+            [],
             (error, results, fields) => {
-                if(error){
+                if (error) {
                     return callback(error);
                 }
                 return callback(null, results);
@@ -46,7 +46,7 @@ module.exports = {
                 data.id
             ],
             (error, results, fields) => {
-                if(error){
+                if (error) {
                     return callback(error);
                 }
                 return callback(null, results);
@@ -54,26 +54,26 @@ module.exports = {
         );
     },
 
-    getUserByEmail : (email,callBack)=>{
+    getUserByEmail: (email, callBack) => {
         console.log(email);
         pool.query(
             'select * from salon where email=?',
             [email],
-            (error,results,fields)=>{
-                if(error){
+            (error, results, fields) => {
+                if (error) {
                     return callBack(error);
                 }
-                return callBack(null,results[0]);
+                return callBack(null, results[0]);
             }
         );
     },
 
-    getSalonById: (sallon_id,callback) =>{
+    getSalonById: (sallon_id, callback) => {
         pool.query(
-            'select * from salon where salon_id=?',
-            [   ],
+            'select salon_name,owner_name,address, from salon where salon_id=?',
+            [],
             (error, results, fields) => {
-                if(error){
+                if (error) {
                     return callback(error);
                 }
                 return callback(null, results);
