@@ -106,6 +106,25 @@ module.exports = {
       
           return callBack(null, results);
         });
-  }
+  },
+
+  cancelAppoinment : (data, callBack) => {
+    pool.query(
+        'update appoinment set status = ? where appoinment_id=?',
+        [
+            data.status,
+            data.appoinment_id,
+           
+           
+        ],
+        (error, results, fields) => {
+            if(error){
+                return callBack(error);
+            }
+            return callBack(null, results);
+        }
+    )
+},
+
 
 }

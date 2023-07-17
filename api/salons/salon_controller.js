@@ -1,5 +1,5 @@
 
-const {create, getSalon,updateSalon,getUserByEmail} = require('./salon_service');
+const {create, getSalon,updateSalon,getUserByEmail,getSalonById} = require('./salon_service');
 const { genSaltSync, hashSync ,compareSync } = require('bcrypt');
 const { sign } = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
@@ -102,5 +102,20 @@ module.exports = {
             }
         });
     },
+    getSalonById: (req, res) => {
+        const salon_id = req.body.params;
+        getSalonById((err,results) => {
+            if(err){
+                console.log(err);
+                return;
+            }
+            return res.json({
+                success: 1,
+                data: results
+            });
+        });
+    },
     
 };
+
+//getSalonById
