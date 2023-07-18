@@ -126,5 +126,25 @@ module.exports = {
     )
 },
 
+resheduleAppoinment : (data, callBack) => {
+  pool.query(
+      'update appoinment set date = ?,time = ?,day=? where appoinment_id=?',
+      [
+          data.date,
+          data.time,
+          data.day,
+          data.appoinment_id,
+         
+      ],
+      (error, results, fields) => {
+          if(error){
+              return callBack(error);
+          }
+          return callBack(null, results);
+      }
+  )
+},
+
+
 
 }
