@@ -90,7 +90,7 @@ module.exports = {
                     success: 1,
                     message: "login successsfully",
                    // token: jsontoken,
-                    result: results.salon_id
+                    result: results
                 });
             }else{
                 console.log(result);
