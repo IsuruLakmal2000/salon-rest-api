@@ -163,5 +163,24 @@ getAvailableAppoinmentForSalons : (salon_id,callBack)=>{
 },
 
 
+MarkAsCompleted : (data, callBack) => {
+  pool.query(
+      'update appoinment set status = "completed" where appoinment_id=?',
+      [
+          
+          data.appoinment_id,
+         
+      ],
+      (error, results, fields) => {
+          if(error){
+              return callBack(error);
+          }
+          return callBack(null, results);
+      }
+  )
+},
+
+
+
 
 }
