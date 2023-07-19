@@ -89,7 +89,7 @@ module.exports = {
                 return res.json({
                     success: 1,
                     message: "login successsfully",
-                    token: jsontoken,
+                   // token: jsontoken,
                     result: results.salon_id
                 });
             }else{
