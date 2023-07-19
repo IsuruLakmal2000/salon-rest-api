@@ -1,4 +1,4 @@
-const {makeAppoinment,getServicePoint,checkAvailability,getOngoingAppoinmentsDetails,cancelAppoinment ,resheduleAppoinment,getAvailableAppoinmentForSalons,MarkAsCompleted,getAvailableAppoinmentForSalons} = require('./appoinment_service');
+const {makeAppoinment,getServicePoint,checkAvailability,getOngoingAppoinmentsDetails,cancelAppoinment ,resheduleAppoinment,getAvailableAppoinmentForSalons,MarkAsCompleted} = require('./appoinment_service');
 
 module.exports = {
     makeAppoinment: (req, res) => {
@@ -83,20 +83,20 @@ module.exports = {
             });
         });
 
-        getAvailableAppoinmentForSalons(salon_id,(err, results) => {
-            if(err){
-                console.log(err);
-                return res.status(500).json({
-                    success: 0,
-                    message: "Database connection error"
-                });
-            }
+        // getAvailableAppoinmentForSalons(salon_id,(err, results) => {
+        //     if(err){
+        //         console.log(err);
+        //         return res.status(500).json({
+        //             success: 0,
+        //             message: "Database connection error"
+        //         });
+        //     }
            
-            return res.status(200).json({
-                success: 1,
-                data: results
-            });
-        });
+        //     return res.status(200).json({
+        //         success: 1,
+        //         data: results
+        //     });
+        // });
     },
 
 
@@ -150,7 +150,7 @@ module.exports = {
         });
     },
 
-    getAppoinmentsDetailsForSalons: (req, res) => {
+    getAvailableAppoinmentForSalons: (req, res) => {
        
         const salon_id = req.params.salon_id;
         
