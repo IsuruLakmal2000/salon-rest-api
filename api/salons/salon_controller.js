@@ -88,7 +88,7 @@ module.exports = {
                 });
                 return res.json({
                     success: 1,
-                    message: "login successfully",
+                    message: "login successsfully",
                     token: jsontoken,
                     result: results
                 });
