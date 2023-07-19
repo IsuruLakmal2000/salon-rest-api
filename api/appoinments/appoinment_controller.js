@@ -1,4 +1,4 @@
-const {makeAppoinment,getServicePoint,checkAvailability,getOngoingAppoinmentsDetails,cancelAppoinment ,resheduleAppoinment,getAvailableAppoinmentForSalons,MarkAsCompleted} = require('./appoinment_service');
+const {makeAppoinment,getServicePoint,checkAvailability,getOngoingAppoinmentsDetails,cancelAppoinment ,resheduleAppoinment,getAvailableAppoinmentForSalons,MarkAsCompleted,getCompletedAppoinmentForSalons} = require('./appoinment_service');
 
 module.exports = {
     makeAppoinment: (req, res) => {
