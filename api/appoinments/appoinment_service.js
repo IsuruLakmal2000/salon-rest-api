@@ -161,6 +161,22 @@ getAvailableAppoinmentForSalons : (salon_id,callBack)=>{
       return callBack(null, results);
     });
 },
+getCompletedAppoinmentForSalons : (salon_id,callBack)=>{
+        
+  pool.query('SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name,package.package_price FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.salon_id = ? AND appoinment.status = "completed"',
+  [salon_id], (error, results, fields) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({
+          success: 0,
+          message: 'Database connection error'
+        });
+      }
+      
+  
+      return callBack(null, results);
+    });
+},
 
 
 MarkAsCompleted : (data, callBack) => {
