@@ -68,7 +68,7 @@ module.exports = {
         );
     },
 
-    getSalonById: (sallon_id, callback) => {
+    getSalonById: (salon_id, callback) => {
         pool.query(
             'select salon_name,owner_name,address, from salon where salon_id=?',
             [],
