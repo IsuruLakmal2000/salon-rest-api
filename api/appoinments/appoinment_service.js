@@ -158,6 +158,19 @@ module.exports = {
     );
   },
 
+  getCancelAppoinment: (salon_id, callBack) => {
+    pool.query(
+      "select *from appoinment where salon_id=? and status='cancelled'",
+      [salon_id],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+
   resheduleAppoinment: (data, callBack) => {
     pool.query(
       "update appoinment set date = ?,time = ?,day=? where appoinment_id=?",
