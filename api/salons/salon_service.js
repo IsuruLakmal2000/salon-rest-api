@@ -1,85 +1,73 @@
-const pool = require('../../config/database');
+const pool = require("../../config/database");
 
 module.exports = {
-    create: (data, callBack) => {
-        pool.query(
-            'insert into salon(salon_name,owner_name,email,phone,address,password,latitude,longitude) values(?,?,?,?,?,?,?,?)',
-            [
-                data.salonName,
-                data.ownerName,
-                data.email,
-                data.pno,
-                data.address,
-                data.password,
-                data.latitude,
-                data.longitude
+  create: (data, callBack) => {
+    pool.query(
+      "insert into salon(salon_name,owner_name,email,phone,address,password,latitude,longitude) values(?,?,?,?,?,?,?,?)",
+      [
+        data.salonName,
+        data.ownerName,
+        data.email,
+        data.pno,
+        data.address,
+        data.password,
+        data.latitude,
+        data.longitude,
+      ],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
 
-            ],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error);
-                }
-                return callBack(null, results);
-            }
-        )
-    },
+  getSalon: (callback) => {
+    pool.query("select * from salon", [], (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
+  updateSalon: (data, callback) => {
+    pool.query(
+      "update salon set description=?,service_points=? where salon_id=?",
+      [data.description, data.service_points, data.id],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
 
-    getSalon: callback => {
-        pool.query(
-            'select * from salon',
-            [],
-            (error, results, fields) => {
-                if (error) {
-                    return callback(error);
-                }
-                return callback(null, results);
-            }
-        );
+  getUserByEmail: (email, callBack) => {
+    console.log(email);
+    pool.query(
+      "select * from salon where email=?",
+      [email],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  },
 
-    },
-    updateSalon: (data, callback) => {
-        pool.query(
-            'update salon set description=?,service_points=? where salon_id=?',
-            [
-                data.description,
-                data.service_points,
-                data.id
-            ],
-            (error, results, fields) => {
-                if (error) {
-                    return callback(error);
-                }
-                return callback(null, results);
-            }
-        );
-    },
-
-    getUserByEmail: (email, callBack) => {
-        console.log(email);
-        pool.query(
-            'select * from salon where email=?',
-            [email],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        );
-    },
-
-    getSalonById: (salon_id, callback) => {
-        pool.query(
-            'select salon_name,owner_name,address, from salon where salon_id=?',
-            [],
-            (error, results, fields) => {
-                if (error) {
-                    return callback(error);
-                }
-                return callback(null, results);
-            }
-        );
-
-    },
-
-}
+  getSalonById: (salon_id, callback) => {
+    pool.query(
+      "select * from salon where salon_id=?",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
+};
