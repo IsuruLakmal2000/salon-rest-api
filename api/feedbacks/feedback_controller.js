@@ -32,29 +32,10 @@ module.exports = {
         });
       }
 
-      if (results.affectedRows == 1) {
-        const id = results.insertId;
-        const appoinment_id = req.body.appoinment_id;
-        console.log(id);
-        putFeedbackIdOnAppoinment(id, appoinment_id, (err, results) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).json({
-              success: 0,
-              message: "Database connection error",
-            });
-          }
-
-          return res.status(200).json({
-            success: 1,
-            data: results,
-          });
-        });
-      }
-      //   return res.status(200).json({
-      //     success: 1,
-      //     data: results,
-      //   });
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
     });
   },
 };

@@ -19,21 +19,14 @@ module.exports = {
 
   putFeedback: (data, callBack) => {
     pool.query(
-      "insert into feedback(feedback,rating_star,customer_id,salon_id) values(?,?,?,?)",
-      [data.feedback, data.rating_star, data.customer_id, data.salon_id],
-      (error, results) => {
-        if (error) {
-          return callBack(error);
-        }
-        return callBack(null, results);
-      }
-    );
-  },
-  putFeedbackIdOnAppoinment: (id, appoinment_id, callBack) => {
-    console.log("inside serivce" + appoinment_id);
-    pool.query(
-      "update appoinment set feedback_id = ? where appoinment_id=?",
-      [id, appoinment_id],
+      "insert into feedback(feedback,rating_star,customer_id,salon_id,appoinment_id) values(?,?,?,?,?)",
+      [
+        data.feedback,
+        data.rating_star,
+        data.customer_id,
+        data.salon_id,
+        data.appoinment_id,
+      ],
       (error, results) => {
         if (error) {
           return callBack(error);
