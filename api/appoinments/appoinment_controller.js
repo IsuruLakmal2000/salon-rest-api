@@ -9,7 +9,7 @@ const {
   MarkAsCompleted,
   getCompletedAppoinmentForSalons,
   getCancelAppoinment,
-  getCancelAppoinmentForCustomer,
+  getCompletedAppoinmentForCustomer,
 } = require("./appoinment_service");
 
 module.exports = {
@@ -237,10 +237,10 @@ module.exports = {
       });
     });
   },
-  //for customer - get cancel appoinments
-  getCancelAppoinmentForCustomer: (req, res) => {
+  //for customer - get completed appoinments
+  getCompletedAppoinmentForCustomer: (req, res) => {
     const customer_id = req.params.customer_id;
-    getCancelAppoinmentForCustomer(customer_id, (err, results) => {
+    getCompletedAppoinmentForCustomer(customer_id, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({

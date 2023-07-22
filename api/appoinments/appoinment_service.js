@@ -235,9 +235,9 @@ module.exports = {
   },
 
   //for customer-get cancel appoinments
-  getCancelAppoinmentForCustomer: (customer_id, callBack) => {
+  getCompletedAppoinmentForCustomer: (customer_id, callBack) => {
     pool.query(
-      "SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.customer_id = ? AND appoinment.status = 'cancelled'",
+      "SELECT appoinment.appoinment_id, appoinment.salon_id, appoinment.date, salon.salon_name, appoinment.time, appoinment.day, package.package_name FROM appoinment JOIN package ON appoinment.selectedPackage_id = package.package_id JOIN salon ON appoinment.salon_id = salon.salon_id WHERE appoinment.customer_id = ? and appoinment.status='completed'",
       [customer_id],
       (error, results, fields) => {
         if (error) {
