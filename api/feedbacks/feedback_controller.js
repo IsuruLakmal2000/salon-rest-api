@@ -1,7 +1,7 @@
 const {
   getFeedbackBySalonId,
   putFeedback,
-  putFeedbackIdOnAppoinment,
+  changeStatus,
 } = require("./feedback_service");
 
 module.exports = {
@@ -31,11 +31,25 @@ module.exports = {
           message: "Database connection error",
         });
       }
+      changeStatus(req.body.appoinment_id, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection error",
+          });
+        }
 
-      return res.status(200).json({
-        success: 1,
-        data: results,
+        return res.status(200).json({
+          success: 1,
+          data: results,
+        });
       });
+
+      //   return res.status(200).json({
+      //     success: 1,
+      //     data: results,
+      //   });
     });
   },
 };

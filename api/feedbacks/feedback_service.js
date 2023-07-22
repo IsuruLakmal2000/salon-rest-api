@@ -35,4 +35,16 @@ module.exports = {
       }
     );
   },
+  changeStatus: (appoinment_id, callBack) => {
+    pool.query(
+      "update appoinment set status ='feedback-received' where appoinment_id=?",
+      [appoinment_id],
+      (error, results) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
 };
