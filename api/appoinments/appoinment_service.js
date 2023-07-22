@@ -89,7 +89,7 @@ module.exports = {
       }
     );
   },
-
+  //when making appoinment check date is available or not
   checkAvailability: (data, callBack) => {
     const { date, salonId } = data;
     console.log("date :" + date);
@@ -127,6 +127,7 @@ module.exports = {
       }
     );
   },
+  //customer side ongoing appoinment
   getOngoingAppoinmentsDetails: (customer_id, callBack) => {
     pool.query(
       'SELECT appoinment.appoinment_id, appoinment.salon_id, appoinment.date, salon.salon_name, appoinment.time, appoinment.day, package.package_name FROM appoinment JOIN package ON appoinment.selectedPackage_id = package.package_id JOIN salon ON appoinment.salon_id = salon.salon_id WHERE appoinment.customer_id = ? and appoinment.status="ongoing"',
@@ -144,7 +145,7 @@ module.exports = {
       }
     );
   },
-
+  //for customer- when customer click cancel appoinment
   cancelAppoinment: (data, callBack) => {
     pool.query(
       "update appoinment set status = ? where appoinment_id=?",
@@ -157,7 +158,7 @@ module.exports = {
       }
     );
   },
-
+  //for salons---get cancelled appoinments
   getCancelAppoinment: (salon_id, callBack) => {
     pool.query(
       "SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name,package.package_price FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.salon_id = ? AND appoinment.status = 'cancelled'",
@@ -170,7 +171,7 @@ module.exports = {
       }
     );
   },
-
+  // customer side ongoing appoinment -reshedule button pressed
   resheduleAppoinment: (data, callBack) => {
     pool.query(
       "update appoinment set date = ?,time = ?,day=? where appoinment_id=?",
@@ -183,7 +184,7 @@ module.exports = {
       }
     );
   },
-
+  //for salons---get available appoinments
   getAvailableAppoinmentForSalons: (salon_id, callBack) => {
     pool.query(
       'SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name,package.package_price FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.salon_id = ? AND appoinment.status = "ongoing"',
@@ -201,6 +202,7 @@ module.exports = {
       }
     );
   },
+  //for salons---get completed appoinments
   getCompletedAppoinmentForSalons: (salon_id, callBack) => {
     pool.query(
       'SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name,package.package_price FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.salon_id = ? AND appoinment.status = "completed" limit 6',
@@ -218,12 +220,26 @@ module.exports = {
       }
     );
   },
-
+  //for salons---when mark as complete button pressed
   MarkAsCompleted: (data, callBack) => {
     pool.query(
       "update appoinment set status = ? where appoinment_id=?",
       [data.status, data.appoinment_id],
       (error, results) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+
+  //for customer-get cancel appoinments
+  getCancelAppoinmentForCustomer: (customer_id, callBack) => {
+    pool.query(
+      "SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.customer_id = ? AND appoinment.status = 'cancelled'",
+      [customer_id],
+      (error, results, fields) => {
         if (error) {
           return callBack(error);
         }

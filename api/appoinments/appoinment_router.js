@@ -9,6 +9,7 @@ const {
   MarkAsCompleted,
   getCompletedAppoinmentForSalons,
   getCancelAppoinment,
+  getCancelAppoinmentForCustomer,
 } = require("./appoinment_controller");
 
 const router = require("express").Router();
@@ -30,5 +31,9 @@ router.get(
 );
 
 router.get("/getCancelledAppoinment/:salon_id", getCancelAppoinment);
+router.get(
+  "/getCancelledAppoinmentForCustomer/:customer_id",
+  getCancelAppoinmentForCustomer
+);
 
 module.exports = router;
