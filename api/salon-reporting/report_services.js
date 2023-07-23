@@ -16,7 +16,7 @@ module.exports = {
 
   getTotalEarnings: (salon_id, callback) => {
     pool.query(
-      "SELECT SUM(package.package_price) AS total_earnings FROM appoinment JOIN package ON appoinment.selectedPackage_id = package_id WHERE appoinment.salon_id = ? AND appoinment.status = 'completed';",
+      "SELECT SUM(package.package_price) AS total_earnings FROM appoinment JOIN package ON appoinment.selectedPackage_id = package_id WHERE appoinment.salon_id = ? AND (appoinment.status = 'completed'  or status = 'feedback-received');",
       [salon_id],
       (error, results) => {
         if (error) {
