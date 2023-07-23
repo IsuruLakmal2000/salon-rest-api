@@ -205,7 +205,7 @@ module.exports = {
   //for salons---get completed appoinments
   getCompletedAppoinmentForSalons: (salon_id, callBack) => {
     pool.query(
-      'SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name,package.package_price FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.salon_id = ? AND appoinment.status = "completed" limit 6',
+      'SELECT appoinment.appoinment_id, appoinment.date,  appoinment.time,  customer.customer_name,  package.package_name,package.package_price FROM appoinment JOIN customer ON appoinment.customer_id = customer.customer_id JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE   appoinment.salon_id = ? AND appoinment.status = "completed" or appoinment.status = "feedback-received" limit 6',
       [salon_id],
       (error, results, fields) => {
         if (error) {
