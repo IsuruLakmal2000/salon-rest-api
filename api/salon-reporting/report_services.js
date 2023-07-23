@@ -3,7 +3,7 @@ const pool = require("../../config/database");
 module.exports = {
   getCompleted_appoinment_count: (salon_id, callback) => {
     pool.query(
-      " SELECT COUNT(*) AS completed_appoinments FROM appoinment WHERE appoinment.salon_id = ? AND status = 'completed';",
+      " SELECT COUNT(*) AS completed_appoinments FROM appoinment WHERE appoinment.salon_id = ? AND (status = 'completed' or status = 'feedback-received');",
       [salon_id],
       (error, results) => {
         if (error) {
