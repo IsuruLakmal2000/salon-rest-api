@@ -39,4 +39,18 @@ module.exports = {
       }
     );
   },
+
+  //--------------Revenue for the last 7 days---------------- bar cahrt
+  Last7dayRevenue: (salon_id, callback) => {
+    pool.query(
+      "SELECT DATE(date) AS appoinment_date, SUM(package.package_price) AS revenue FROM appoinment INNER JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ? AND (appoinment.status = 'completed' OR appoinment.status = 'feedback_received') AND appoinment.date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() GROUP BY DATE(date);",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
 };

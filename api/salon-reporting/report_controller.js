@@ -2,6 +2,7 @@ const {
   getCompleted_appoinment_count,
   getTotalEarnings,
   getAvailableAppoinmentCount,
+  Last7dayRevenue,
 } = require("./report_services");
 
 module.exports = {
@@ -54,6 +55,20 @@ module.exports = {
             },
           });
         });
+      });
+    });
+  },
+  // --------------Revenue for the last 7 days---------------- bar cahrt
+  Last7dayRevenue: (req, res) => {
+    const salonId = req.params.salon_id;
+    Last7dayRevenue(salonId, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results,
       });
     });
   },
