@@ -102,6 +102,20 @@ module.exports = {
       });
     });
   },
+
+  Last90dayTotalRevenue: (req, res) => {
+    const salonId = req.params.salon_id;
+    Last90dayTotalRevenue(salonId, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
 };
 
 //getSalonById

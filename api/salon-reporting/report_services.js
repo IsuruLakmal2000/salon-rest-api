@@ -82,4 +82,17 @@ module.exports = {
       }
     );
   },
+
+  Last90dayTotalRevenue: (salon_id, callback) => {
+    pool.query(
+      "SELECT SUM(package.package_price) AS revenue FROM appoinment JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ? and (appoinment.status = 'completed' or appoinment.status = 'feedback-recieved') AND appoinment.date >= DATE_SUB(NOW(), INTERVAL 90 DAY);",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
 };
