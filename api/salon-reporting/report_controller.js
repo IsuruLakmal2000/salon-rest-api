@@ -1,12 +1,13 @@
 const {
   getCompleted_appoinment_count,
   getTotalEarnings,
+  getAvailableAppoinmentCount,
 } = require("./report_services");
 
 module.exports = {
   getDashboardDetails: (req, res) => {
     const salon_id = req.params.salon_id;
-    let completed_appointments, total_earnings;
+    let completed_appointments, total_earnings, available_appoinments;
     getCompleted_appoinment_count(salon_id, (err, result1) => {
       if (err) {
         console.log(err);
@@ -31,12 +32,13 @@ module.exports = {
         //     data: result2,
         //   });
 
-        getAvailableAppoinmentCount(salon_id, (err, result2) => {
+        getAvailableAppoinmentCount(salon_id, (err, result3) => {
+          console.log("inside available appoinment");
           if (err) {
             console.log(err);
             return;
           }
-          total_earnings = result2;
+          available_appoinments = result3;
           console.log(total_earnings);
           //   return res.json({
           //     success: 1,
@@ -45,7 +47,11 @@ module.exports = {
 
           return res.json({
             success: 1,
-            data: { completed_appointments, total_earnings },
+            data: {
+              completed_appointments,
+              total_earnings,
+              available_appoinments,
+            },
           });
         });
       });
