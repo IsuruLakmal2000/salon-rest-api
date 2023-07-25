@@ -4,6 +4,7 @@ const {
   getAvailableAppoinmentCount,
   Last7dayRevenue,
   Last7dayTotalRevenue,
+  Last30dayTotalRevenue,
 } = require("./report_services");
 
 module.exports = {
@@ -77,6 +78,20 @@ module.exports = {
   Last7dayTotalRevenue: (req, res) => {
     const salonId = req.params.salon_id;
     Last7dayTotalRevenue(salonId, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  Last30dayTotalRevenue: (req, res) => {
+    const salonId = req.params.salon_id;
+    Last30dayTotalRevenue(salonId, (err, results) => {
       if (err) {
         console.log(err);
         return;
