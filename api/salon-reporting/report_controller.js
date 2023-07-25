@@ -31,9 +31,22 @@ module.exports = {
         //     data: result2,
         //   });
 
-        return res.json({
-          success: 1,
-          data: { completed_appointments, total_earnings },
+        getAvailableAppoinmentCount(salon_id, (err, result2) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          total_earnings = result2;
+          console.log(total_earnings);
+          //   return res.json({
+          //     success: 1,
+          //     data: result2,
+          //   });
+
+          return res.json({
+            success: 1,
+            data: { completed_appointments, total_earnings },
+          });
         });
       });
     });

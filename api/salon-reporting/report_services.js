@@ -26,4 +26,17 @@ module.exports = {
       }
     );
   },
+
+  getAvailableAppoinmentCount: (salon_id, callback) => {
+    pool.query(
+      " SELECT COUNT(*) AS completed_appoinments FROM appoinment WHERE appoinment.salon_id = ? AND status = 'ongoing' ",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results[0].completed_appoinments);
+      }
+    );
+  },
 };
