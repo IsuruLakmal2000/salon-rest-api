@@ -5,6 +5,7 @@ const {
   Last7dayRevenue,
   Last7dayTotalRevenue,
   Last30dayTotalRevenue,
+  Last90dayTotalRevenue,
 } = require("./report_services");
 
 module.exports = {
