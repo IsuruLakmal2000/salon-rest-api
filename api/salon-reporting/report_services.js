@@ -57,7 +57,7 @@ module.exports = {
 
   Last7dayTotalRevenue: (salon_id, callback) => {
     pool.query(
-      "SELECT SUM(package.package_price) AS revenue FROM appoinment JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ? and (appoinment.status = 'completed' or appoinment.status = 'feedback-recieved') AND appoinment.date >= DATE_SUB(NOW(), INTERVAL 7 DAY);",
+      " SELECT SUM(package.package_price) AS revenue FROM appoinment INNER JOIN package ON appoinment.selectedPackage_id = package.package_id  WHERE appoinment.salon_id = ? AND ( appoinment.status = 'completed' OR appoinment.status = 'feedback-received' ) AND appoinment.date BETWEEN DATE_SUB(NOW(), INTERVAL 8 DAY) AND NOW();",
       [salon_id],
       (error, results) => {
         if (error) {
