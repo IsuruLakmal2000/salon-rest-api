@@ -72,7 +72,7 @@ module.exports = {
 
   Last30dayTotalRevenue: (salon_id, callback) => {
     pool.query(
-      "SELECT SUM(package.package_price) AS revenue FROM appoinment JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ? and (appoinment.status = 'completed' or appoinment.status = 'feedback-recieved') AND appoinment.date >= DATE_SUB(NOW(), INTERVAL 30 DAY);",
+      "SELECT SUM(package.package_price) AS revenue FROM appoinment INNER JOIN package ON appoinment.selectedPackage_id = package.package_id  WHERE appoinment.salon_id = ? AND ( appoinment.status = 'completed' OR appoinment.status = 'feedback-received' ) AND appoinment.date BETWEEN DATE_SUB(NOW(), INTERVAL 31 DAY) AND NOW();",
       [salon_id],
       (error, results) => {
         if (error) {
@@ -85,7 +85,7 @@ module.exports = {
 
   Last90dayTotalRevenue: (salon_id, callback) => {
     pool.query(
-      "SELECT SUM(package.package_price) AS revenue FROM appoinment JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ? and (appoinment.status = 'completed' or appoinment.status = 'feedback-recieved') AND appoinment.date >= DATE_SUB(NOW(), INTERVAL 90 DAY);",
+      "SELECT SUM(package.package_price) AS revenue FROM appoinment INNER JOIN package ON appoinment.selectedPackage_id = package.package_id  WHERE appoinment.salon_id = ? AND ( appoinment.status = 'completed' OR appoinment.status = 'feedback-received' ) AND appoinment.date BETWEEN DATE_SUB(NOW(), INTERVAL 91 DAY) AND NOW();",
       [salon_id],
       (error, results) => {
         if (error) {
