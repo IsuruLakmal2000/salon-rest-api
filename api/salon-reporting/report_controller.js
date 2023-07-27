@@ -8,6 +8,8 @@ const {
   Last90dayTotalRevenue,
   Last4WeekRevenue,
   Last3MonthRevenue,
+  RepeateCustomerIncome,
+  RepeateCustomerCount,
 } = require("./report_services");
 
 module.exports = {
@@ -146,6 +148,37 @@ module.exports = {
       });
     });
   },
+  GetRepeatedCustomerReports: (req, res) => {
+    let RepeaatedCustomer_Count, totalIncome_RepeatedCustomers;
+    const salonId = req.params.salon_id;
+    RepeateCustomerCount(salonId, (err, result1) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      RepeaatedCustomer_Count = result1;
+      // return res.json({
+      //   success: 1,
+      //   data: result1,
+      // });
+      RepeateCustomerIncome(salonId, (err, result2) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        totalIncome_RepeatedCustomers = result2;
+        return res.json({
+          success: 1,
+
+          data: {
+            RepeaatedCustomer_Count,
+            totalIncome_RepeatedCustomers,
+          },
+        });
+      });
+    });
+  },
 };
+//get repeated customer earnings
 
 //getSalonById

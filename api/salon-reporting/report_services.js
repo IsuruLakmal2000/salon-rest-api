@@ -120,4 +120,30 @@ module.exports = {
       }
     );
   },
+  // repeated customer reportings----------------------------------------------------------
+
+  RepeateCustomerCount: (salon_id, callback) => {
+    pool.query(
+      "SELECT  COUNT(*) AS num_repeating_customers FROM (  SELECT  customer_id  FROM appoinment  WHERE salon_id = ? AND (status = 'completed' OR status = 'feedback-received') GROUP BY customer_id  HAVING COUNT(*) > 1 ) AS repeating_customers;",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results[0].num_repeating_customers);
+      }
+    );
+  },
+  RepeateCustomerIncome: (salon_id, callback) => {
+    pool.query(
+      "SELECT SUM(package.package_price) AS total_revenue FROM appoinment  INNER JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ?  AND customer_id IN ( SELECT  customer_id  FROM appoinment  WHERE salon_id = 69  AND (appoinment.status = 'completed' OR appoinment.status = 'feedback-received' ) GROUP BY customer_id  HAVING COUNT(*) > 1 );",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results[0].total_revenue);
+      }
+    );
+  },
 };

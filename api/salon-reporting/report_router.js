@@ -6,6 +6,7 @@ const {
   Last90dayTotalRevenue,
   Last4WeekRevenue,
   Last3MonthRevenue,
+  GetRepeatedCustomerReports,
 } = require("./report_controller");
 const router = require("express").Router();
 
@@ -18,5 +19,6 @@ router.get("/Last3MonthRevenue/:salon_id", Last3MonthRevenue);
 router.get("/Last7dayTotalRevenue/:salon_id", Last7dayTotalRevenue);
 router.get("/Last30dayTotalRevenue/:salon_id", Last30dayTotalRevenue);
 router.get("/Last90dayTotalRevenue/:salon_id", Last90dayTotalRevenue);
+router.get("/GetRepeatedCustomerReports/:salon_id", GetRepeatedCustomerReports);
 
 module.exports = router;
