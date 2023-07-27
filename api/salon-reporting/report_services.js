@@ -66,6 +66,18 @@ module.exports = {
       }
     );
   },
+  Last3MonthRevenue: (salon_id, callback) => {
+    pool.query(
+      " SELECT   DATE_FORMAT(appoinment.date, '%M %Y') AS month,COALESCE(SUM(package.package_price), 0) AS revenue  FROM (SELECT DISTINCT DATE_FORMAT(date, '%Y-%m-01') AS month_start FROM appoinment WHERE date >= DATE_SUB(NOW(), INTERVAL 3 MONTH)) AS months LEFT JOIN appoinment ON DATE_FORMAT(appoinment.date, '%Y-%m-01') = months.month_start INNER JOIN package ON appoinment.selectedPackage_id = package.package_id   WHERE appoinment.salon_id = ?  AND (appoinment.status = 'completed' OR appoinment.status = 'feedback-received' )   GROUP BY DATE_FORMAT(appoinment.date, '%M %Y')  ORDER BY DATE_FORMAT(appoinment.date, '%Y-%m');",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
   //--------------Total  Revenue for the last 7 days----------------Price Tag
 
   Last7dayTotalRevenue: (salon_id, callback) => {
