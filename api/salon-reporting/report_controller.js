@@ -10,6 +10,7 @@ const {
   Last3MonthRevenue,
   RepeateCustomerIncome,
   RepeateCustomerCount,
+  PackageReport,
 } = require("./report_services");
 
 module.exports = {
@@ -175,6 +176,21 @@ module.exports = {
             totalIncome_RepeatedCustomers,
           },
         });
+      });
+    });
+  },
+
+  // get package details and reporting - how many times each package has been appoinmented
+  PackageReport: (req, res) => {
+    const salonId = req.params.salon_id;
+    PackageReport(salonId, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results,
       });
     });
   },

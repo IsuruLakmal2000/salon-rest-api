@@ -146,4 +146,19 @@ module.exports = {
       }
     );
   },
+
+  // get package details and reporting - how many times each package has been appoinmented
+
+  PackageReport: (salon_id, callback) => {
+    pool.query(
+      "SELECT package.package_name, COUNT(appoinment.appoinment_id) AS num_appointments, SUM(package.package_price) AS total_revenue FROM appoinment INNER JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ? AND (appoinment.status = 'completed' OR appoinment.status = 'feedback-received') GROUP BY package.package_id;",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
 };
