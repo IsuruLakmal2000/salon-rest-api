@@ -156,7 +156,7 @@ module.exports = {
         console.log(err);
         return;
       }
-      RepeaatedCustomer_Count = result1;
+      RepeatedCustomer_Count = result1;
       // return res.json({
       //   success: 1,
       //   data: result1,
