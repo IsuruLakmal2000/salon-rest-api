@@ -53,6 +53,19 @@ module.exports = {
       }
     );
   },
+
+  Last4WeekRevenue: (salon_id, callback) => {
+    pool.query(
+      " SELECT CONCAT(DATE_FORMAT(DATE_ADD(MAKEDATE(LEFT(weeks.week_number, 4), RIGHT(weeks.week_number, 2)*7-6), INTERVAL 0 DAY), '%m/%d'), ' - ', DATE_FORMAT(DATE_ADD(MAKEDATE(LEFT(weeks.week_number, 4), RIGHT(weeks.week_number, 2)*7-6), INTERVAL 6 DAY), '%m/%d')) AS week_range,COALESCE(SUM(package.package_price), 0) AS revenue FROM (SELECT DISTINCT YEARWEEK(date) AS week_number FROM appoinment WHERE date >= DATE_SUB(NOW(), INTERVAL 4 WEEK)) AS weeks JOIN appoinment ON weeks.week_number = YEARWEEK(appoinment.date)INNER JOIN package ON appoinment.selectedPackage_id = package.package_id WHERE appoinment.salon_id = ? AND (appoinment.status = 'completed' OR appoinment.status = 'feedback-received' ) GROUP BY weeks.week_number ORDER BY weeks.week_number;",
+      [salon_id],
+      (error, results) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
   //--------------Total  Revenue for the last 7 days----------------Price Tag
 
   Last7dayTotalRevenue: (salon_id, callback) => {
