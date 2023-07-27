@@ -149,7 +149,7 @@ module.exports = {
     });
   },
   GetRepeatedCustomerReports: (req, res) => {
-    let RepeaatedCustomer_Count, totalIncome_RepeatedCustomers;
+    let RepeatedCustomer_Count, totalIncome_RepeatedCustomers;
     const salonId = req.params.salon_id;
     RepeateCustomerCount(salonId, (err, result1) => {
       if (err) {
@@ -171,7 +171,7 @@ module.exports = {
           success: 1,
 
           data: {
-            RepeaatedCustomer_Count,
+            RepeatedCustomer_Count,
             totalIncome_RepeatedCustomers,
           },
         });
