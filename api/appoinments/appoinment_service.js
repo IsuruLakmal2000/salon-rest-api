@@ -11,6 +11,7 @@ module.exports = {
       time,
       status,
       employee_id,
+      payment,
     } = data;
     // const preferred_date = date.toISOString().slice(0, 10);
     // const preferred_time_slot = time.slice(0, 5);
@@ -54,7 +55,7 @@ module.exports = {
                   if (booked_slot < max_appointments) {
                     const new_available_slots = booked_slot + 1;
                     pool.query(
-                      "INSERT INTO appoinment (salon_id, customer_id, selectedPackage_id, date,day, time,status, booked_slot,employee_id) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)",
+                      "INSERT INTO appoinment (salon_id, customer_id, selectedPackage_id, date,day, time,status, booked_slot,employee_id,payment) VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?)",
                       [
                         salon_id,
                         customer_id,
@@ -65,6 +66,7 @@ module.exports = {
                         status,
                         new_available_slots,
                         employee_id,
+                        payment,
                       ],
                       (error, results, fields) => {
                         if (error) {
