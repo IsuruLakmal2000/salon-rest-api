@@ -9,6 +9,6 @@ const router = require("express").Router();
 
 router.get("/:salon_id", getEmployees);
 router.delete("/:employee_id", RemoveEmployeeById);
-router.post("/:employee_id", addEmployee);
+router.post("/", addEmployee);
 
 module.exports = router;
