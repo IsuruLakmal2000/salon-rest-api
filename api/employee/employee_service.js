@@ -28,7 +28,7 @@ module.exports = {
   },
   RemoveEmployeeById: (emloyee_id, callBack) => {
     pool.query(
-      "Delete FROM employee WHERE emloyee_id = ?",
+      "Delete FROM employee WHERE employee_id = ?",
       [emloyee_id],
       (error, results, fields) => {
         if (error) {
