@@ -3,8 +3,8 @@ const pool = require("../../config/database");
 module.exports = {
   addEmployee: (data, callBack) => {
     pool.query(
-      "insert into package(package_name,package_price,salon_id) values(?,?,?)",
-      [data.packageName, data.packagePrice, data.salon_id],
+      "insert into employee(employee_name,employee_id,salon_id) values(?,?,?)",
+      [data.employee_name, data.employee_id, data.salon_id],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
