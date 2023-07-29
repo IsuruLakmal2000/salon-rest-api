@@ -53,4 +53,17 @@ module.exports = {
       }
     );
   },
+
+  packageDeleteById: (package_id, callback) => {
+    pool.query(
+      "DELETE FROM package WHERE package_id = ?",
+      [package_id],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
 };

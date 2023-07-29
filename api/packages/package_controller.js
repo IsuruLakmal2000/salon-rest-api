@@ -3,6 +3,7 @@ const {
   addSalonType,
   getPackagesBySalonId,
   packageUpdate,
+  packageDeleteById,
 } = require("./package_service");
 
 module.exports = {
@@ -59,6 +60,23 @@ module.exports = {
     const body = req.body;
 
     packageUpdate(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+  packageDeleteById: (req, res) => {
+    const package_id = req.params.package_id;
+
+    packageDeleteById(package_id, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({
