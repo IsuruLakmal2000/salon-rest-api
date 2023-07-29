@@ -37,7 +37,7 @@ module.exports = {
   },
 
   RemoveEmployeeById: (req, res) => {
-    const emloyee_id = req.params.employee_id;
+    const employee_id = req.params.employee_id;
     RemoveEmployeeById(employee_id, (err, results) => {
       if (err) {
         console.log(err);
