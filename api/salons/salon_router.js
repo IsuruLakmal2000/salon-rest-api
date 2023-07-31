@@ -9,6 +9,7 @@ const {
 const router = require("express").Router();
 
 router.post("/", createSalon);
+
 router.get("/", getSalon);
 router.get("/getSalonsByDistance", getSalonsByDistance);
 router.get("/:salon_id", getSalonById);

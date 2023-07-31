@@ -161,4 +161,17 @@ module.exports = {
       }
     );
   },
+
+  AddAdminRevenue: (data, callBack) => {
+    pool.query(
+      "insert into adminRevenue(income,user_id) values(?,?) ",
+      [data.income, data.customer_id],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
 };
