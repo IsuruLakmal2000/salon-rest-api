@@ -4,6 +4,7 @@ const {
   updateSalon,
   getUserByEmail,
   getSalonById,
+  getSalonsByDistance,
 } = require("./salon_service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
@@ -54,6 +55,20 @@ module.exports = {
   },
   getSalon: (req, res) => {
     getSalon((err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+  getSalonsByDistance: (req, res) => {
+    const userLatitude = req.query.userLatitude;
+    const userLongitude = req.query.userLongitude;
+    getSalonsByDistance(userLatitude, userLongitude, (err, results) => {
       if (err) {
         console.log(err);
         return;
